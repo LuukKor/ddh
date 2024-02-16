@@ -1,0 +1,28 @@
+import { QueryStatus, useQuery } from '@tanstack/react-query';
+
+import { PeopleAPI } from '@/types/people';
+
+import { PeopleService } from '@/services/people';
+
+interface State {
+  status: QueryStatus;
+  person: PeopleAPI | undefined;
+}
+
+const PEOPLES_KEY = 'people';
+
+const usePerson = (id: string): State => {
+  const peopleService = new PeopleService();
+
+  const { data, status } = useQuery({
+    queryKey: [PEOPLES_KEY, id],
+    queryFn: () => peopleService.getPerson(id),
+  });
+
+  return {
+    status: status,
+    person: data,
+  };
+};
+
+export default usePerson;
