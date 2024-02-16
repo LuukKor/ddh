@@ -5,6 +5,7 @@ import { People, PeopleAPI } from '@/types/people';
 import { fetcher } from '@/utils/fetcher';
 
 const PEOPLE_RESOURCE = 'people';
+const PEOPLE_PER_PAGE = 10;
 
 export class PeopleService {
   private url = process.env.NEXT_PUBLIC_API_URL;
@@ -37,9 +38,11 @@ export class PeopleService {
       });
 
       return {
-        page: 1,
-        perPage: 10,
-        totalPage: 1,
+        page: page,
+        perPage: PEOPLE_PER_PAGE,
+        hideNextPage: !response.next,
+        hidePrevPage: !response.previous,
+        totalPage: Math.ceil(response.count / PEOPLE_PER_PAGE),
         list: response.results.map((x) => ({ name: x.name })),
       };
     } catch (e) {
