@@ -29,7 +29,7 @@ export class PeopleService {
     try {
       const response = await fetcher<APIList<PeopleAPI>>(url);
 
-      const requiredFields: Partial<keyof People>[] = ['name'];
+      const requiredFields: Partial<keyof People>[] = ['name', 'url'];
 
       if (!response.results) throw new Error('No data');
 
@@ -41,8 +41,22 @@ export class PeopleService {
         page: page,
         perPage: PEOPLE_PER_PAGE,
         totalPage: Math.ceil(response.count / PEOPLE_PER_PAGE),
-        list: response.results.map((x) => ({ name: x.name })),
+        list: response.results.map((x) => ({ name: x.name, url: x.url })),
       };
+    } catch (e) {
+      throw new Error(`Error while fetching ${e}`);
+    }
+  }
+
+  async getPerson(id: string): Promise<PeopleAPI> {
+    const url = this.getURL() + '/' + id;
+
+    try {
+      const response = await fetcher<PeopleAPI>(url);
+
+      if (!response) throw new Error('No data');
+
+      return response;
     } catch (e) {
       throw new Error(`Error while fetching ${e}`);
     }
