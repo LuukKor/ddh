@@ -8,6 +8,7 @@ import { PeopleService } from '@/services/people';
 interface State {
   status: QueryStatus;
   peoples: List<People> | undefined;
+  totalPage: number | undefined;
 }
 
 const PEOPLES_KEY = 'people';
@@ -23,6 +24,7 @@ const usePeoples = (page: number): State => {
   return {
     status: status,
     peoples: data,
+    totalPage: data?.totalPage,
   };
 };
 
