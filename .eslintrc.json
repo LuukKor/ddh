@@ -1,0 +1,76 @@
+{
+  "plugins": [
+    "@typescript-eslint",
+    "@tanstack/query",
+    "unused-imports",
+    "simple-import-sort"
+  ],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/"
+  ],
+  "rules": {
+    "@tanstack/query/exhaustive-deps": "error",
+    "@tanstack/query/no-rest-destructuring": "warn",
+    "@tanstack/query/stable-query-client": "error",
+    "no-console": "error",
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/no-explicit-any": "error",
+    "unused-imports/no-unused-imports-ts": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          [
+            "^react",
+            "^next",
+            "^@tanstack/react-query",
+            "^@emotion",
+            "^\\w"
+          ],
+          [
+            "^(config)"
+          ],
+          [
+            "^@mui?\\w"
+          ],
+          [
+            "^@mui/icons-materia?\\w"
+          ],
+          // Absolute imports and Relative imports.
+          [
+            "^@/(type|types)"
+          ],
+          [
+            "^@/(services|utils|lib|dictionary|hooks)"
+          ],
+          [
+            "^@/(contexts|context)"
+          ],
+          [
+            "^@/(layout)",
+            "^@/(templates|components|features)"
+          ],
+          // for styles imports.
+          [
+            "^[^.]",
+            "^[^.][.]"
+          ]
+        ]
+      }
+    ]
+  }
+}
