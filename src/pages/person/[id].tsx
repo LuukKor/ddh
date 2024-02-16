@@ -6,8 +6,8 @@ import Stack from "@mui/material/Stack";
 import { useRouter } from "next/router";
 
 export default function Person() {
-  const router = useRouter()
-  const { person, status } = usePerson(router.query.id as string)
+  const { query, back } = useRouter()
+  const { person, status } = usePerson(query.id as string)
 
   console.log(person, status)
 
@@ -16,7 +16,7 @@ export default function Person() {
       <Stack alignItems="center" justifyContent="center" my={4}>
         {status === 'success' && person ? (
           <div>
-            <button onClick={() => router.back()}>prev</button>
+            <button onClick={() => back()}>prev</button>
             {person.name}
           </div>
         ) : (
