@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function Person() {
   const { query, back } = useRouter()
-  const { person, status } = usePerson(query.id as string)
+  const { person, status } = usePerson(query.name as string)
 
   console.log(person, status)
 

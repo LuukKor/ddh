@@ -1,16 +1,17 @@
+
+import { ChangeEvent, useState } from 'react';
 import { Box, CircularProgress, Divider, Pagination, Stack } from '@mui/material';
 
 import usePeoples from '@/hooks/usePeoples';
 
 import PeoplesList from './peoples-list';
-import { ChangeEvent, useState } from 'react';
 
 const Peoples = (): JSX.Element => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1)
   const { peoples, status, totalPage } = usePeoples(page);
 
-  function handlePaginationChange(_: ChangeEvent<unknown>, targetPage: number): void {
-    setPage(targetPage)
+  function handlePaginationChange(_: ChangeEvent<unknown>, nextPage: number): void {
+    setPage(nextPage)
   }
 
   return (

@@ -3,6 +3,7 @@ import { QueryStatus, useQuery } from '@tanstack/react-query';
 import { PeopleAPI } from '@/types/people';
 
 import { PeopleService } from '@/services/people';
+import { APIList } from '@/types/api';
 
 interface State {
   status: QueryStatus;
@@ -21,7 +22,7 @@ const usePerson = (id: string): State => {
 
   return {
     status: status,
-    person: data,
+    person: data?.results[0],
   };
 };
 

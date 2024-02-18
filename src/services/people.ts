@@ -48,11 +48,12 @@ export class PeopleService {
     }
   }
 
-  async getPerson(id: string): Promise<PeopleAPI> {
-    const url = this.getURL() + '/' + id;
+  async getPerson(name: string): Promise<APIList<PeopleAPI>> {
+    const apiURL = new URL(this.url + PEOPLE_RESOURCE);
+    apiURL.searchParams.append('search', name);
 
     try {
-      const response = await fetcher<PeopleAPI>(url);
+      const response = await fetcher<APIList<PeopleAPI>>(apiURL.href);
 
       if (!response) throw new Error('No data');
 
