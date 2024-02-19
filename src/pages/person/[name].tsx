@@ -1,30 +1,31 @@
 import Layout from "@/components/layout";
+import Person from "@/components/person";
 import usePerson from "@/hooks/usePerson";
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
-import Stack from "@mui/material/Stack";
+import { Box, Button, CircularProgress, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 
-export default function Person() {
+export default function PersonPage() {
   const { query, back } = useRouter()
-  const { person, status } = usePerson(query.name as string)
-
-  console.log(person, status)
+  const { person, status, getDataByUrl } = usePerson(query.name as string)
 
   return (
     <Layout>
-      <Stack alignItems="center" justifyContent="center" my={4}>
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+        my={4}
+      >
+        <Button onClick={back} variant="contained">Go back</Button>
         {status === 'success' && person ? (
-          <div>
-            <button onClick={() => back()}>prev</button>
-            {person.name}
-          </div>
+          <Person person={person} getDataByUrl={getDataByUrl} />
         ) : (
           <Box p={4}>
             <CircularProgress />
           </Box>
-        )}
+        )
+        }
       </Stack>
-    </Layout>
+    </Layout >
   );
 }
