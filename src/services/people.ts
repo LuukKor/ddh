@@ -30,7 +30,7 @@ export class PeopleService {
     try {
       const response = await fetcher<APIList<PeopleAPI>>(url);
 
-      const requiredFields: Partial<keyof People>[] = ['name', 'url'];
+      const requiredFields: Partial<keyof People>[] = ['name'];
 
       if (!response.results) throw new Error('No data');
 
