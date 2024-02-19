@@ -1,4 +1,5 @@
 import { APIList } from '@/types/api';
+import { DataAPI } from '@/types/data';
 import { List } from '@/types/list';
 import { People, PeopleAPI } from '@/types/people';
 
@@ -54,6 +55,18 @@ export class PeopleService {
 
     try {
       const response = await fetcher<APIList<PeopleAPI>>(apiURL.href);
+
+      if (!response) throw new Error('No data');
+
+      return response;
+    } catch (e) {
+      throw new Error(`Error while fetching ${e}`);
+    }
+  }
+
+  async getDataByUrl(url: string): Promise<APIList<DataAPI>> {
+    try {
+      const response = await fetcher<APIList<any>>(url);
 
       if (!response) throw new Error('No data');
 
