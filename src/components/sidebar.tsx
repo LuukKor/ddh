@@ -15,7 +15,8 @@ import {
   ListItem,
   Collapse,
   Stack,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useRouter } from 'next/router';
@@ -103,9 +104,17 @@ function Sidebar(): JSX.Element {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          <Toolbar sx={{
-            marginLeft: 'auto'
-          }}>
+          <Toolbar
+            disableGutters={true}
+            sx={{
+              width: '100%',
+              justifyContent: 'space-between',
+              padding: 2
+            }}
+          >
+            <Typography variant="button" display='block' margin='0' fontSize={24}>
+              DDH
+            </Typography>
             <IconButton
               sx={{
                 display: { xs: 'flex', sm: 'none' },
@@ -149,8 +158,8 @@ function Sidebar(): JSX.Element {
                   <Link style={{
                     width: '100%',
                     textDecoration: 'none',
-                    backgroundColor: pathname === page.url ? theme.palette.primary.main : 'inherit',
-                    color: pathname === page.url ? theme.palette.primary.contrastText : 'inherit',
+                    backgroundColor: pathname === page.url || pathname.includes('/person/') ? theme.palette.primary.main : 'inherit',
+                    color: pathname === page.url || pathname.includes('/person/') ? theme.palette.primary.contrastText : 'inherit',
                   }} href={page.url}>
                     <ListItemButton>
                       <ListItemText>
