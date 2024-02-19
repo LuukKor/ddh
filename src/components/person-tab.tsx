@@ -2,7 +2,7 @@ import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { APIList } from '@/types/api';
 import { DataAPI } from '@/types/data';
-import { uppercaseFirstLetter } from '@/utils/string';
+import { uppercaseFirstLetter, removeUnderscore } from '@/utils/string';
 import { useQuery } from '@tanstack/react-query';
 
 
@@ -31,7 +31,7 @@ const PersonTab = (props: PersonTabProps): JSX.Element => {
             if (!hiddenFields.includes(el2[0])) {
               return <>
                 <Typography key={el2[0]} variant="subtitle1">
-                  {uppercaseFirstLetter(el2[0])}: <b>{el2[1]}</b>
+                  {uppercaseFirstLetter(removeUnderscore(el2[0]))}: <b>{el2[1]}</b>
                 </Typography>
               </>
             }

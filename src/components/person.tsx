@@ -3,7 +3,7 @@ import { Box, Tab, Tabs, Typography } from '@mui/material';
 
 import { PeopleAPI } from '@/types/people';
 import { APIList } from '@/types/api';
-import { uppercaseFirstLetter } from '@/utils/string';
+import { uppercaseFirstLetter, removeUnderscore } from '@/utils/string';
 
 import PersonTab from './person-tab';
 import { DataAPI } from '@/types/data';
@@ -38,7 +38,7 @@ const Person = ({ person, getDataByUrl }: PersonProps): JSX.Element => {
       <>
         {Object.entries(person).map(el => {
           if (isNotEmpty(el, basicDataFields) && activeTab === 0) return <Typography key={el[0]} variant="subtitle1">
-            {uppercaseFirstLetter(el[0])}: <b>{el[1]}</b>
+            {uppercaseFirstLetter(removeUnderscore(el[0]))}: <b>{el[1]}</b>
           </Typography>
         })}
       </>
