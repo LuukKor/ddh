@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
+import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { APIList } from '@/types/api';
 import { DataAPI } from '@/types/data';
@@ -19,7 +19,7 @@ const PersonTab = (props: PersonTabProps): JSX.Element => {
     queryKey: ['tab_data', url[urlIndex]],
     queryFn: () => getDataByUrl(url[urlIndex]),
   });
-  const hiddenFields = ['homeworld', 'vehicles', 'starships', 'films', 'species', 'created', 'edited', 'url', 'residents', 'pilots', 'characters', 'planets'];
+  const hiddenFields = ['homeworld', 'vehicles', 'starships', 'films', 'species', 'created', 'edited', 'url', 'residents', 'pilots', 'characters', 'planets', 'people'];
 
   function getChild() {
     if (children) {
@@ -50,13 +50,13 @@ const PersonTab = (props: PersonTabProps): JSX.Element => {
 
   return (
     <>
-      {!isLoading && status === 'success'
+      {!isLoading ? status === 'success'
         ? getChild()
-        : (
-          <Box p={4}>
-            <CircularProgress />
-          </Box>
-        )}
+        : <p>Error</p>
+        : <Stack alignItems={'center'} p={4}>
+          <CircularProgress />
+        </Stack>
+      }
     </>
   );
 }
