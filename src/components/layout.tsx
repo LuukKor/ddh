@@ -1,18 +1,24 @@
 import { ReactNode } from 'react';
 
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, useMediaQuery } from '@mui/material';
 import Sidebar from './sidebar';
+import theme from '@/theme';
 
 type PropsWithChildren = { children?: ReactNode };
 
 const Layout = ({ children }: PropsWithChildren): JSX.Element => {
+
+  const isGreaterThanSmallBreakpoint = useMediaQuery(
+    theme.breakpoints.up("sm")
+  );
+
   return (
-    <Container maxWidth="lg">
-      <Stack direction={'row'}>
-        <Sidebar />
+    <Stack direction={isGreaterThanSmallBreakpoint ? 'row' : 'column'}>
+      <Sidebar />
+      <Container maxWidth="lg">
         <Stack component="main" width={'100%'}>{children}</Stack>
-      </Stack>
-    </Container>
+      </Container>
+    </Stack>
   );
 };
 
