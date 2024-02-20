@@ -7,7 +7,7 @@ interface IAPIOptions {
 }
 
 export async function fetcher<T>(url: string, method: IAPIMethod = 'GET', body = {}): Promise<T> {
-  let options: IAPIOptions = {
+  const options: IAPIOptions = {
     headers: {
       accept: 'application/json',
     }

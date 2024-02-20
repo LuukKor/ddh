@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
 
 import { Container, Stack, useMediaQuery } from '@mui/material';
-import Sidebar from './sidebar';
+
 import theme from '@/theme';
+
+import Sidebar from './sidebar';
 
 type PropsWithChildren = { children?: ReactNode };
 

@@ -1,9 +1,12 @@
+import { useRouter } from "next/router";
+
+import { Box, CircularProgress, Stack } from "@mui/material";
+
+import usePerson from "@/hooks/usePerson";
+
 import BackButton from "@/components/back-button";
 import Layout from "@/components/layout";
 import Person from "@/components/person";
-import usePerson from "@/hooks/usePerson";
-import { Box, CircularProgress, Stack } from "@mui/material";
-import { useRouter } from "next/router";
 
 export default function PersonPage() {
   const { query } = useRouter()

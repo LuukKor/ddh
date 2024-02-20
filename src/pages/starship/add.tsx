@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 
-import theme from "@/theme";
+import { fetcher } from "@/utils/fetcher";
+import { removeUnderscore, uppercaseFirstLetter } from "@/utils/string";
+
 import BackButton from "@/components/back-button";
 import Layout from "@/components/layout";
 import PilotAutocomplete from "@/components/pilot-autocomplete";
-import { fetcher } from "@/utils/fetcher";
-import { removeUnderscore, uppercaseFirstLetter } from "@/utils/string";
+
+import theme from "@/theme";
 
 interface IAPIErrors {
   formErrors: object[],
@@ -15,7 +18,7 @@ interface IAPIErrors {
 }
 
 export default function PersonPage() {
-  const [errors, setErrors] = useState<IAPIErrors | {}>({});
+  const [errors, setErrors] = useState<IAPIErrors | object>({});
   const { register, handleSubmit, setValue } = useForm()
 
   const onSubmit = (data: FieldValues) => {
@@ -31,7 +34,7 @@ export default function PersonPage() {
       if (Object.keys(res as object).length === 0) {
         alert('Starship added')
       }
-    }).catch(err => console.error(err))
+    })
   }
 
   return (

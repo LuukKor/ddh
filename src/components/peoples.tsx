@@ -1,5 +1,6 @@
 
 import { ChangeEvent, useState } from 'react';
+
 import { Box, CircularProgress, Divider, Pagination, Stack } from '@mui/material';
 
 import usePeoples from '@/hooks/usePeoples';

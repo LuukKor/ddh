@@ -1,10 +1,10 @@
 import { QueryStatus, useQuery } from '@tanstack/react-query';
 
+import { APIList } from '@/types/api';
+import { DataAPI } from '@/types/data';
 import { PeopleAPI } from '@/types/people';
 
 import { PeopleService } from '@/services/people';
-import { APIList } from '@/types/api';
-import { DataAPI } from '@/types/data';
 
 interface State {
   status: QueryStatus;

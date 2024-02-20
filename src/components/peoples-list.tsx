@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Typography } from '@mui/material';
+
 import { People } from '@/types/people';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const PeoplesList = ({ peoples }: Props): JSX.Element => {
-  function getIdFromUrl(i: number): number | void {
+  function getIdFromUrl(i: number): number | string {
     if (!peoples) return -1;
     const slitUrl: string[] = peoples[i].url?.split('/').filter(el => el !== "") || [];
     const id: number = parseInt(slitUrl[slitUrl.length - 1]);
@@ -16,8 +17,7 @@ const PeoplesList = ({ peoples }: Props): JSX.Element => {
     if (!isNaN(id)) {
       return id;
     } else {
-      alert(peoples[i].name + ': ID is not valid.')
-      console.error(peoples[i].name + 'ID is not valid.')
+      return ''
     }
   }
 

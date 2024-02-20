@@ -1,8 +1,6 @@
-
+import { useRouter } from 'next/router';
 
 import { Button, Stack } from '@mui/material';
-
-import { useRouter } from 'next/router';
 
 const BackButton = (): JSX.Element => {
   const { back } = useRouter()

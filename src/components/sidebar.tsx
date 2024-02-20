@@ -1,29 +1,31 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import theme from '@/theme';
 import {
-  useMediaQuery,
-  Toolbar,
-  ListItemButton,
   Box,
+  Collapse,
   CssBaseline,
   Divider,
   Drawer,
   IconButton,
   List,
   ListItem,
-  Collapse,
-  Stack,
+  ListItemButton,
   ListItemText,
-  Typography
+  Stack,
+  Toolbar,
+  Typography,
+  useMediaQuery
 } from '@mui/material';
+
 import {
-  Menu as MenuIcon,
   Close as CloseIcon,
-  KeyboardArrowDown as KeyboardArrowDownIcon
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  Menu as MenuIcon
 } from '@mui/icons-material';
-import { useRouter } from 'next/router';
+
+import theme from '@/theme';
 
 interface IPage {
   name: string
@@ -53,10 +55,6 @@ function Sidebar(): JSX.Element {
       childrens: [
         {
           name: 'Add',
-          url: '/starship/add',
-        },
-        {
-          name: 'Remove',
           url: '/starship/add',
         }
       ]
@@ -147,10 +145,10 @@ function Sidebar(): JSX.Element {
                       <ListItemText primary={page.name} />
                       <KeyboardArrowDownIcon />
                     </ListItemButton>
-                    <Collapse key={'child_' + page.url} in={collapseIsOpen} timeout="auto" unmountOnExit>
+                    <Collapse in={collapseIsOpen} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         {page.childrens.map(childPage => {
-                          return <Link style={{
+                          return <Link key={childPage.url} style={{
                             display: 'inline-block',
                             width: '100%',
                             textDecoration: 'none',

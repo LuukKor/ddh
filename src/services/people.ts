@@ -65,7 +65,7 @@ export class PeopleService {
 
   async getDataByUrl(url: string): Promise<APIList<DataAPI>> {
     try {
-      const response = await fetcher<APIList<any>>(url);
+      const response = await fetcher<APIList<DataAPI>>(url);
 
       if (!response) throw new Error('No data');
 

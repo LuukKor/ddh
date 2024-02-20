@@ -1,16 +1,17 @@
 
 import { Box, Typography } from '@mui/material';
-import { uppercaseFirstLetter, removeUnderscore } from '@/utils/string';
+
 import { APIList } from '@/types/api';
 import { DataAPI } from '@/types/data';
 import { PeopleAPI } from '@/types/people';
 
+import { removeUnderscore, uppercaseFirstLetter } from '@/utils/string';
+
 interface IShowData {
-  data: APIList<DataAPI> | PeopleAPI,
-  fields?: string[]
+  data: APIList<DataAPI> | PeopleAPI
 }
 
-const ShowData = ({ data, fields = [] }: IShowData): JSX.Element => {
+const ShowData = ({ data }: IShowData): JSX.Element => {
   const hiddenFields = ['homeworld', 'vehicles', 'starships', 'films', 'species', 'created', 'edited', 'url', 'residents', 'pilots', 'characters', 'planets', 'people'];
 
   return <>

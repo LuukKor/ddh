@@ -1,12 +1,13 @@
 
 import { useEffect, useState } from 'react';
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
+
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 
-import { PeopleService } from "@/services/people";
-
 import { People } from '@/types/people';
-import { useQuery } from '@tanstack/react-query';
-import { FieldValues, UseFormSetValue } from 'react-hook-form';
+
+import { PeopleService } from "@/services/people";
 
 const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue<FieldValues> }): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue
   }
 
   useEffect(() => {
-    if (!allOptionsDownloaded && isOpen === true && status === 'success') {
+    if (!allOptionsDownloaded && isOpen && status === 'success') {
       if (page < data.totalPage) {
         setPage(page + 1)
       } else {
@@ -37,7 +38,7 @@ const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue
       }
       setOptions([...data.list, ...options])
     }
-  }, [isOpen, data, status, page, allOptionsDownloaded])
+  }, [isOpen, data, status, page, allOptionsDownloaded, options])
 
   return (
 

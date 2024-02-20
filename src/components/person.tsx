@@ -1,4 +1,5 @@
 import { SyntheticEvent, useState } from 'react';
+
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 
 import { PeopleAPI } from '@/types/people';
@@ -14,7 +15,6 @@ interface PersonProps {
 const Person = ({ person }: PersonProps): JSX.Element => {
   const [activeTab, setActiveTab] = useState(0);
   const urlFields = ['homeworld', 'vehicles', 'starships', 'films', 'species'];
-  const basicDataFields = ['name', 'height', 'mass', 'gender', 'hair_color', 'skin_color', 'eye_color', 'birth_year'];
 
   const isNotEmpty = (field: [string, string[]], fields: string[]) => fields.includes(field[0]) && field[1].length !== 0;
   const handleTabChange = (_: SyntheticEvent, newTab: number) => setActiveTab(newTab);
@@ -34,12 +34,12 @@ const Person = ({ person }: PersonProps): JSX.Element => {
         onChange={handleTabChange}
       >
         <Tab label="Basic" />
-        {Object.entries(person).map((el: [string, string[]], i: number) => {
+        {Object.entries(person).map((el: [string, string[]]) => {
           if (isNotEmpty(el, urlFields)) return <Tab key={el[0]} label={el[0]} />
         })}
       </Tabs>
       {activeTab === 0 && (
-        <ShowData data={person} fields={basicDataFields} />
+        <ShowData data={person} />
       )}
       {Object.entries(person).map((el: [string, string[]]) => {
         if (isNotEmpty(el, urlFields)) {

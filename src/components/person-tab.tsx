@@ -1,8 +1,11 @@
-import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import ShowData from './show-data';
+
+import { Button, CircularProgress, Stack, Typography } from '@mui/material';
+
 import { PeopleService } from '@/services/people';
+
+import ShowData from './show-data';
 
 
 interface PersonTabProps {
