@@ -9,21 +9,22 @@ interface Props {
 
 const PeoplesList = ({ peoples }: Props): JSX.Element => {
 
-  // function getIdFromUrl(i: number): number | void {
-  //   let id: number | string[] = peoples[i].url.split('/').filter(el => el !== "");
-  //   id = parseInt(id[id.length - 1]);
+  function getIdFromUrl(i: number): number | void {
+    if (!peoples) return -1;
+    const slitUrl: string[] = peoples[i].url?.split('/').filter(el => el !== "") || [];
+    const id: number = parseInt(slitUrl[slitUrl.length - 1]);
 
-  //   if (!isNaN(id)) {
-  //     return id;
-  //   } else {
-  //     console.error('ID jest niepoprawne.')
-  //   }
-  // }
+    if (!isNaN(id)) {
+      return id;
+    } else {
+      console.error('ID jest niepoprawne.')
+    }
+  }
 
   return (
     <>
       {peoples.map((x, i) => (
-        <Link key={x.name} href={`/person/${x.name}`}>
+        <Link key={x.name} href={`/people/${getIdFromUrl(i)}`}>
           <Typography variant="subtitle1">
             {x.name}
           </Typography>
