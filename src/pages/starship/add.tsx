@@ -40,10 +40,6 @@ export default function PersonPage() {
     }
   }, [isOpen, data, status, page])
 
-  useEffect(() => {
-    console.log('options', options)
-  }, [options])
-
   function onOpen() {
     setIsOpen(true)
   }

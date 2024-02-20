@@ -18,7 +18,11 @@ import {
   ListItemText,
   Typography
 } from '@mui/material';
-import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import {
+  Menu as MenuIcon,
+  Close as CloseIcon,
+  KeyboardArrowDown as KeyboardArrowDownIcon
+} from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 interface IPage {
@@ -31,11 +35,12 @@ const drawerWidth = 240;
 
 function Sidebar(): JSX.Element {
   const [open, setOpen] = useState(false);
+  const [collapseIsOpen, setCollapseIsOpen] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const { pathname } = useRouter();
 
   const handleClickWithChildrens = () => {
-    setOpen(!open);
+    setCollapseIsOpen(!collapseIsOpen);
   };
   const pages: IPage[] = [
     {
@@ -132,12 +137,12 @@ function Sidebar(): JSX.Element {
               <ListItem key={page.name} disablePadding>
                 {page.childrens ? (
                   page.childrens.map(childPage => {
-                    console.log(pathname)
                     return <Stack key={childPage.url} sx={{ width: '100%' }}>
                       <ListItemButton onClick={handleClickWithChildrens}>
                         <ListItemText primary={page.name} />
+                        <KeyboardArrowDownIcon />
                       </ListItemButton>
-                      <Collapse in={open} timeout="auto" unmountOnExit>
+                      <Collapse in={collapseIsOpen} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                           <Link style={{
                             display: 'inline-block',

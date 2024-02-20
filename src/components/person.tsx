@@ -35,7 +35,6 @@ const Person = ({ person, getDataByUrl }: PersonProps): JSX.Element => {
         variant="scrollable"
         value={activeTab}
         onChange={handleTabChange}
-        centered={true}
       >
         <Tab label="Basic" />
         {Object.entries(person).map((el: [string, string[]], i: number) => {
