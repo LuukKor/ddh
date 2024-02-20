@@ -38,10 +38,10 @@ function Sidebar(): JSX.Element {
   const [collapseIsOpen, setCollapseIsOpen] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const { pathname } = useRouter();
+  const isGreaterThanMediumBreakpoint = useMediaQuery(
+    theme.breakpoints.up("md")
+  );
 
-  const handleClickWithChildrens = () => {
-    setCollapseIsOpen(!collapseIsOpen);
-  };
   const pages: IPage[] = [
     {
       name: 'Home',
@@ -54,28 +54,32 @@ function Sidebar(): JSX.Element {
         {
           name: 'Add',
           url: '/starship/add',
+        },
+        {
+          name: 'Remove',
+          url: '/starship/add',
         }
       ]
     }
   ]
 
-  const isGreaterThanMediumBreakpoint = useMediaQuery(
-    theme.breakpoints.up("md")
-  );
-
-  const handleDrawerClose = () => {
+  function handleDrawerClose() {
     setIsClosing(true);
     setOpen(false);
   };
 
-  const handleDrawerTransitionEnd = () => {
+  function handleDrawerTransitionEnd() {
     setIsClosing(false);
   };
 
-  const handleDrawerToggle = () => {
+  function handleDrawerToggle() {
     if (!isClosing) {
       setOpen(!open);
     }
+  };
+
+  function handleClickWithChildrens() {
+    setCollapseIsOpen(!collapseIsOpen);
   };
 
   return (
@@ -117,9 +121,11 @@ function Sidebar(): JSX.Element {
               padding: 2
             }}
           >
-            <Typography variant="button" display='block' margin='0' fontSize={24}>
-              DDH
-            </Typography>
+            <Link href='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Typography variant="button" display='block' margin='0' fontSize={24}>
+                DDH
+              </Typography>
+            </Link>
             <IconButton
               sx={{
                 display: { xs: 'flex', md: 'none' },
@@ -136,15 +142,15 @@ function Sidebar(): JSX.Element {
             {pages.map((page) => (
               <ListItem key={page.name} disablePadding>
                 {page.childrens ? (
-                  page.childrens.map(childPage => {
-                    return <Stack key={childPage.url} sx={{ width: '100%' }}>
-                      <ListItemButton onClick={handleClickWithChildrens}>
-                        <ListItemText primary={page.name} />
-                        <KeyboardArrowDownIcon />
-                      </ListItemButton>
-                      <Collapse in={collapseIsOpen} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                          <Link style={{
+                  <Stack key={'child_' + page.name} sx={{ width: '100%' }}>
+                    <ListItemButton onClick={handleClickWithChildrens}>
+                      <ListItemText primary={page.name} />
+                      <KeyboardArrowDownIcon />
+                    </ListItemButton>
+                    <Collapse key={'child_' + page.url} in={collapseIsOpen} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        {page.childrens.map(childPage => {
+                          return <Link style={{
                             display: 'inline-block',
                             width: '100%',
                             textDecoration: 'none',
@@ -155,10 +161,11 @@ function Sidebar(): JSX.Element {
                               <ListItemText>{childPage.name}</ListItemText>
                             </ListItemButton>
                           </Link>
-                        </List>
-                      </Collapse>
-                    </Stack>
-                  })
+                        })}
+
+                      </List>
+                    </Collapse>
+                  </Stack>
                 ) : (
                   <Link style={{
                     width: '100%',

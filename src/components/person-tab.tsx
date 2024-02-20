@@ -6,7 +6,7 @@ import { PeopleService } from '@/services/people';
 
 
 interface PersonTabProps {
-  url: string[]
+  url: string[],
 }
 
 const PersonTab = ({ url }: PersonTabProps): JSX.Element => {
