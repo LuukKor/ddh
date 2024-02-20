@@ -8,7 +8,6 @@ interface Props {
 }
 
 const PeoplesList = ({ peoples }: Props): JSX.Element => {
-
   function getIdFromUrl(i: number): number | void {
     if (!peoples) return -1;
     const slitUrl: string[] = peoples[i].url?.split('/').filter(el => el !== "") || [];
@@ -17,7 +16,8 @@ const PeoplesList = ({ peoples }: Props): JSX.Element => {
     if (!isNaN(id)) {
       return id;
     } else {
-      console.error('ID jest niepoprawne.')
+      alert(peoples[i].name + ': ID is not valid.')
+      console.error(peoples[i].name + 'ID is not valid.')
     }
   }
 

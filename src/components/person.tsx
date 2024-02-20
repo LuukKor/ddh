@@ -7,6 +7,7 @@ import { uppercaseFirstLetter, removeUnderscore } from '@/utils/string';
 
 import PersonTab from './person-tab';
 import { DataAPI } from '@/types/data';
+import ShowData from './show-data';
 
 
 interface PersonProps {
@@ -41,13 +42,9 @@ const Person = ({ person, getDataByUrl }: PersonProps): JSX.Element => {
           if (isNotEmpty(el, urlFields)) return <Tab key={el[0]} label={el[0]} />
         })}
       </Tabs>
-      <>
-        {Object.entries(person).map(el => {
-          if (isNotEmpty(el, basicDataFields) && activeTab === 0) return <Typography key={el[0]} variant="subtitle1">
-            {uppercaseFirstLetter(removeUnderscore(el[0]))}: <b>{el[1]}</b>
-          </Typography>
-        })}
-      </>
+      {activeTab === 0 && (
+        <ShowData data={person} fields={basicDataFields} />
+      )}
       {Object.entries(person).map((el: [string, string[]]) => {
         if (isNotEmpty(el, urlFields)) {
           tabIndex++;
