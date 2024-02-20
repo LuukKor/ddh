@@ -25,11 +25,18 @@ const Person = ({ person, getDataByUrl }: PersonProps): JSX.Element => {
   let tabIndex = 0;
 
   return <>
-    <Typography variant="h1" align="center" my={2}>
+    <Typography variant="h3" align="center" my={2}>
       {person.name}
     </Typography>
-    <Box sx={{ borderBottom: 1, borderColor: 'divider' }} maxWidth={550} width={'100%'}>
-      <Tabs variant="fullWidth" value={activeTab} onChange={handleTabChange} >
+    <Box sx={{ borderBottom: 1, borderColor: 'divider' }} maxWidth={600} width={'100%'}>
+      <Tabs
+        scrollButtons="auto"
+        allowScrollButtonsMobile={true}
+        variant="scrollable"
+        value={activeTab}
+        onChange={handleTabChange}
+        centered={true}
+      >
         <Tab label="Basic" />
         {Object.entries(person).map((el: [string, string[]], i: number) => {
           if (isNotEmpty(el, urlFields)) return <Tab key={el[0]} label={el[0]} />

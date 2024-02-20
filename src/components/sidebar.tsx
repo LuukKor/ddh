@@ -30,7 +30,7 @@ interface IPage {
 const drawerWidth = 240;
 
 function Sidebar(): JSX.Element {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { pathname } = useRouter();
 
@@ -54,8 +54,8 @@ function Sidebar(): JSX.Element {
     }
   ]
 
-  const isGreaterThanSmallBreakpoint = useMediaQuery(
-    theme.breakpoints.up("sm")
+  const isGreaterThanMediumBreakpoint = useMediaQuery(
+    theme.breakpoints.up("md")
   );
 
   const handleDrawerClose = () => {
@@ -77,7 +77,7 @@ function Sidebar(): JSX.Element {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Toolbar sx={{
-        display: { xs: 'flex', sm: 'none' },
+        display: { xs: 'flex', md: 'none' },
         marginLeft: 'auto'
       }}>
         <IconButton
@@ -90,10 +90,10 @@ function Sidebar(): JSX.Element {
       </Toolbar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
       >
         <Drawer
-          variant={isGreaterThanSmallBreakpoint ? "permanent" : "temporary"}
+          variant={isGreaterThanMediumBreakpoint ? "permanent" : "temporary"}
           open={open}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
@@ -117,7 +117,7 @@ function Sidebar(): JSX.Element {
             </Typography>
             <IconButton
               sx={{
-                display: { xs: 'flex', sm: 'none' },
+                display: { xs: 'flex', md: 'none' },
               }}
               color="inherit"
               edge="start"

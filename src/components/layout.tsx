@@ -8,12 +8,12 @@ type PropsWithChildren = { children?: ReactNode };
 
 const Layout = ({ children }: PropsWithChildren): JSX.Element => {
 
-  const isGreaterThanSmallBreakpoint = useMediaQuery(
-    theme.breakpoints.up("sm")
+  const isGreaterThanMediumBreakpoint = useMediaQuery(
+    theme.breakpoints.up("md")
   );
 
   return (
-    <Stack direction={isGreaterThanSmallBreakpoint ? 'row' : 'column'}>
+    <Stack direction={isGreaterThanMediumBreakpoint ? 'row' : 'column'}>
       <Sidebar />
       <Container maxWidth="lg">
         <Stack component="main" width={'100%'}>{children}</Stack>
