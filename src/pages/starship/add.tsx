@@ -1,18 +1,22 @@
 import Layout from "@/components/layout";
 import { PeopleService } from "@/services/people";
+import theme from "@/theme";
 import { People } from "@/types/people";
+import { StarshipAPI } from "@/types/starship";
 import { fetcher } from "@/utils/fetcher";
+import { removeUnderscore, uppercaseFirstLetter } from "@/utils/string";
 import { Autocomplete, Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 
 export default function PersonPage() {
   const { back } = useRouter()
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState<People[]>([]);
+  const [errors, setErrors] = useState({});
   const [allOptionsDownloaded, setAllOptionsDownloaded] = useState(false);
   const peopleService = new PeopleService();
   const {
@@ -58,9 +62,20 @@ export default function PersonPage() {
     setIsOpen(false)
   }
 
-  const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(data)
-    fetcher('/api/starship', 'POST', data).then((res) => console.log(res)).catch(err => console.error(err))
+  const onSubmit = (data: StarshipAPI) => {
+    fetcher('/api/starship', 'POST', data).then((res) => {
+      const response: { formErrors: object[], fieldErrors: object } = res as { formErrors: object[], fieldErrors: object };
+
+      if (response?.fieldErrors) {
+        setErrors(response.fieldErrors)
+      } else if (errors) {
+        setErrors({})
+      }
+
+      if (Object.keys(res as object).length === 0) {
+        alert('Starship added')
+      }
+    }).catch(err => console.error(err))
   }
   return (
     <Layout>
@@ -72,6 +87,13 @@ export default function PersonPage() {
       >
         <Button onClick={back} variant="contained">Go back</Button>
         <Box>
+          {errors && Object.entries(errors).map((error) => {
+            const field = uppercaseFirstLetter(removeUnderscore(error[0]))
+            const errorMessage = error[1]
+            return <Box padding={1} color={theme.palette.error.main}>
+              <><b>{field}</b>: {errorMessage}</>
+            </Box>
+          })}
           <Stack direction='row' gap={2} mb={2}>
             <TextField
               fullWidth
@@ -124,10 +146,10 @@ export default function PersonPage() {
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: (
-                      <React.Fragment>
+                      <>
                         {isLoading ? <CircularProgress color="inherit" size={20} /> : null}
                         {params.InputProps.endAdornment}
-                      </React.Fragment>
+                      </>
                     ),
                   }}
                 />

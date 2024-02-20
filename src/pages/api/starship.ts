@@ -18,7 +18,6 @@ const starshipSchema = z.object({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.body)
   if (req.method === 'POST') {
     if (typeof req.body === 'string') {
       req.body = JSON.parse(req.body)
