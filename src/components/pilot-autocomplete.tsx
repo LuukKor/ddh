@@ -9,9 +9,16 @@ import { People } from '@/types/people';
 
 import { PeopleService } from "@/services/people";
 
-const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue<FieldValues> }): JSX.Element => {
+interface IPilotAutocomplete {
+  setValueMethod: UseFormSetValue<FieldValues>,
+  value: People
+}
+
+const PilotAutocomplete = ({ setValueMethod, value }: IPilotAutocomplete): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
-  const [options, setOptions] = useState<People[]>([]);
+  const [options, setOptions] = useState<readonly People[]>([{
+    name: ''
+  }]);
   const [page, setPage] = useState(1);
   const [allOptionsDownloaded, setAllOptionsDownloaded] = useState(false);
   const peopleService = new PeopleService();
@@ -30,7 +37,7 @@ const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue
   }
 
   useEffect(() => {
-    if (!allOptionsDownloaded && isOpen && status === 'success') {
+    if (!allOptionsDownloaded && isOpen === true && status === 'success') {
       if (page < data.totalPage) {
         setPage(page + 1)
       } else {
@@ -46,12 +53,12 @@ const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue
       open={isOpen}
       onOpen={onOpen}
       onClose={onClose}
-      onChange={(event, option) => setValueMethod('pilot', option as { name: string; url: string; })}
+      onChange={(_, option) => setValueMethod('pilot', option)}
       isOptionEqualToValue={(option: People, value: People) => option.name === value.name}
       getOptionLabel={(option: People) => option.name}
       options={options}
       loading={isLoading}
-      defaultValue={options[0]}
+      value={value}
       fullWidth
       renderInput={(params) => (
         <TextField
@@ -67,7 +74,8 @@ const PilotAutocomplete = ({ setValueMethod }: { setValueMethod: UseFormSetValue
             ),
           }}
         />
-      )}
+      )
+      }
     />
   );
 };

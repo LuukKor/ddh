@@ -12,14 +12,25 @@ import PilotAutocomplete from "@/components/pilot-autocomplete";
 
 import theme from "@/theme";
 
+import { StarshipDTO } from "../api/starship";
+
 interface IAPIErrors {
   formErrors: object[],
   fieldErrors: object
 }
 
 export default function PersonPage() {
+  const defaultValues: StarshipDTO = {
+    name: '',
+    model: '',
+    cost_in_credits: 0,
+    length: '',
+    max_atmosphering_speed: '',
+    pilot: { name: '', url: '' },
+    starship_class: 'Starfighter'
+  }
   const [errors, setErrors] = useState<IAPIErrors | object>({});
-  const { register, handleSubmit, setValue } = useForm()
+  const { register, handleSubmit, setValue, watch, reset } = useForm()
 
   const onSubmit = (data: FieldValues) => {
     fetcher('/api/starship', 'POST', data).then((res) => {
@@ -33,6 +44,8 @@ export default function PersonPage() {
 
       if (Object.keys(res as object).length === 0) {
         alert('Starship added')
+        reset(defaultValues)
+        // setValue('starship_class', '')
       }
     })
   }
@@ -62,13 +75,13 @@ export default function PersonPage() {
           <Stack direction='row' gap={2} mb={2}>
             <TextField
               fullWidth
-              defaultValue=""
+              defaultValue={defaultValues.name}
               {...register("name")}
               label={"Name"}
             />
             <TextField
               fullWidth
-              defaultValue=""
+              defaultValue={defaultValues.model}
               {...register("model")}
               label={"Model"}
             />
@@ -77,13 +90,13 @@ export default function PersonPage() {
             <TextField
               fullWidth
               type="number"
-              defaultValue={0}
+              defaultValue={defaultValues.cost_in_credits}
               {...register("cost_in_credits")}
               label={"Cost in credits"}
             />
             <TextField
               fullWidth
-              defaultValue=""
+              defaultValue={defaultValues.length}
               {...register("length")}
               label={"Length"}
             />
@@ -91,21 +104,21 @@ export default function PersonPage() {
           <Stack direction='row' gap={2} mb={2}>
             <TextField
               fullWidth
-              defaultValue=""
+              defaultValue={defaultValues.max_atmosphering_speed}
               {...register("max_atmosphering_speed")}
               label={"Max atmosphering speed"}
             />
             <PilotAutocomplete
               setValueMethod={setValue}
+              value={watch('pilot') || defaultValues.pilot}
             />
           </Stack>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Starship class</InputLabel>
+            <InputLabel id="startship_class_label">Starship class</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="starship_class_label"
               label="Starship class"
-              defaultValue=""
+              defaultValue={defaultValues.starship_class}
               {...register("starship_class")}
             >
               <MenuItem value={'Starfighter'}>Starfighter</MenuItem>
