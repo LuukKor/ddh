@@ -12,13 +12,19 @@ const starshipSchema = z.object({
     url: z.string().url(),
   }),
   starship_class: z.enum(['Starfighter', 'Deep Space Mobile Battlestation']),
-  cost_in_credits: z.number().min(1000),
+  cost_in_credits: z.coerce.number().min(1000),
   length: z.string().min(1),
   max_atmosphering_speed: z.string().min(1),
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(req.body)
   if (req.method === 'POST') {
+    if (typeof req.body === 'string') {
+      req.body = JSON.parse(req.body)
+    }
+
+    console.log(req.body)
     const body = starshipSchema.safeParse(req.body);
 
     if (!body.success) {
