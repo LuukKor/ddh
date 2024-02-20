@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function PersonPage() {
   const { query } = useRouter()
-  const { person, status, getDataByUrl } = usePerson(query.id as string)
+  const { person, status } = usePerson(query.id as string)
 
   return (
     <Layout>
@@ -19,7 +19,7 @@ export default function PersonPage() {
       >
         <BackButton />
         {status === 'success' && person ? (
-          <Person person={person} getDataByUrl={getDataByUrl} />
+          <Person person={person} />
         ) : (
           <Box p={4}>
             <CircularProgress />

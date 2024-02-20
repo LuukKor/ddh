@@ -2,20 +2,16 @@ import { SyntheticEvent, useState } from 'react';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 
 import { PeopleAPI } from '@/types/people';
-import { APIList } from '@/types/api';
-import { uppercaseFirstLetter, removeUnderscore } from '@/utils/string';
 
 import PersonTab from './person-tab';
-import { DataAPI } from '@/types/data';
 import ShowData from './show-data';
 
 
 interface PersonProps {
-  person: PeopleAPI,
-  getDataByUrl: (url: string) => Promise<APIList<DataAPI>>
+  person: PeopleAPI
 }
 
-const Person = ({ person, getDataByUrl }: PersonProps): JSX.Element => {
+const Person = ({ person }: PersonProps): JSX.Element => {
   const [activeTab, setActiveTab] = useState(0);
   const urlFields = ['homeworld', 'vehicles', 'starships', 'films', 'species'];
   const basicDataFields = ['name', 'height', 'mass', 'gender', 'hair_color', 'skin_color', 'eye_color', 'birth_year'];
@@ -50,7 +46,6 @@ const Person = ({ person, getDataByUrl }: PersonProps): JSX.Element => {
           tabIndex++;
           if (activeTab === tabIndex) return <PersonTab
             key={el[0]}
-            getDataByUrl={getDataByUrl}
             url={([] as string[]).concat(el[1])}
           />
         }

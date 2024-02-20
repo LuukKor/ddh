@@ -23,7 +23,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       req.body = JSON.parse(req.body)
     }
 
-    console.log(req.body)
     const body = starshipSchema.safeParse(req.body);
 
     if (!body.success) {

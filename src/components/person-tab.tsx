@@ -1,22 +1,20 @@
 import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { APIList } from '@/types/api';
-import { DataAPI } from '@/types/data';
 import { useQuery } from '@tanstack/react-query';
 import ShowData from './show-data';
+import { PeopleService } from '@/services/people';
 
 
 interface PersonTabProps {
-  getDataByUrl: (url: string) => Promise<APIList<DataAPI>>
   url: string[]
 }
 
-const PersonTab = (props: PersonTabProps): JSX.Element => {
-  const { url, getDataByUrl } = props;
+const PersonTab = ({ url }: PersonTabProps): JSX.Element => {
+  const peopleService = new PeopleService;
   const [urlIndex, setUrlIndex] = useState(0);
   const { data, status, isLoading } = useQuery({
     queryKey: ['tab_data', url[urlIndex]],
-    queryFn: () => getDataByUrl(url[urlIndex]),
+    queryFn: () => peopleService.getDataByUrl(url[urlIndex]),
   });
 
   return (

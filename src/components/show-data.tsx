@@ -17,7 +17,6 @@ const ShowData = ({ data, fields = [] }: IShowData): JSX.Element => {
     if (!field[0] && !fields) {
       return true
     }
-    console.log(!(fields.includes(field[0])))
 
     return !(hiddenFields.includes(field[0])) && field[1].length !== 0
   }

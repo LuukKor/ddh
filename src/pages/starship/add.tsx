@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 
 import theme from "@/theme";
 import BackButton from "@/components/back-button";
@@ -43,6 +43,7 @@ export default function PersonPage() {
         my={4}
       >
         <BackButton />
+        <Typography variant="h3">Add new starship</Typography>
         <Box width={'100%'} maxWidth={600}>
           {errors && (
             <Box mb={1}>
