@@ -1,12 +1,13 @@
+import BackButton from "@/components/back-button";
 import Layout from "@/components/layout";
 import Person from "@/components/person";
 import usePerson from "@/hooks/usePerson";
-import { Box, Button, CircularProgress, Stack } from "@mui/material";
+import { Box, CircularProgress, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 
 export default function PersonPage() {
-  const { query, back } = useRouter()
-  const { person, status, getDataByUrl } = usePerson(query.name as string)
+  const { query } = useRouter()
+  const { person, status, getDataByUrl } = usePerson(query.id as string)
 
   return (
     <Layout>
@@ -16,7 +17,7 @@ export default function PersonPage() {
         gap={2}
         my={4}
       >
-        <Button onClick={back} variant="contained">Go back</Button>
+        <BackButton />
         {status === 'success' && person ? (
           <Person person={person} getDataByUrl={getDataByUrl} />
         ) : (

@@ -27,11 +27,9 @@ const PersonTab = (props: PersonTabProps): JSX.Element => {
           <Stack p={2}>
             {Object.entries(data).map(el2 => {
               if (!hiddenFields.includes(el2[0])) {
-                return <>
-                  <Typography key={el2[0]} variant="subtitle1">
-                    {uppercaseFirstLetter(removeUnderscore(el2[0]))}: <b>{el2[1]}</b>
-                  </Typography>
-                </>
+                return <Typography key={el2[0]} variant="subtitle1">
+                  {uppercaseFirstLetter(removeUnderscore(el2[0]))}: <b>{el2[1]}</b>
+                </Typography>
               }
             })}
             {url.length > 1 && (

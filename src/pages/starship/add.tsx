@@ -1,20 +1,24 @@
-import Layout from "@/components/layout";
-import PilotAutocomplete from "@/components/pilot-autocomplete";
-import theme from "@/theme";
-import { StarshipAPI } from "@/types/starship";
-import { fetcher } from "@/utils/fetcher";
-import { removeUnderscore, uppercaseFirstLetter } from "@/utils/string";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
-import error from "next/error";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
+
+import theme from "@/theme";
+import BackButton from "@/components/back-button";
+import Layout from "@/components/layout";
+import PilotAutocomplete from "@/components/pilot-autocomplete";
+import { fetcher } from "@/utils/fetcher";
+import { removeUnderscore, uppercaseFirstLetter } from "@/utils/string";
+
+interface IAPIErrors {
+  formErrors: object[],
+  fieldErrors: object
+}
 
 export default function PersonPage() {
-  const { back } = useRouter()
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<IAPIErrors | {}>({});
   const { register, handleSubmit, setValue } = useForm()
-  const onSubmit = (data: StarshipAPI) => {
+
+  const onSubmit = (data: FieldValues) => {
     fetcher('/api/starship', 'POST', data).then((res) => {
       const response: { formErrors: object[], fieldErrors: object } = res as { formErrors: object[], fieldErrors: object };
 
@@ -29,6 +33,7 @@ export default function PersonPage() {
       }
     }).catch(err => console.error(err))
   }
+
   return (
     <Layout>
       <Stack
@@ -37,15 +42,19 @@ export default function PersonPage() {
         gap={2}
         my={4}
       >
-        <Button onClick={back} variant="contained">Go back</Button>
+        <BackButton />
         <Box width={'100%'} maxWidth={600}>
-          {errors && Object.entries(errors).map((error) => {
-            const field = uppercaseFirstLetter(removeUnderscore(error[0]))
-            const errorMessage = error[1]
-            return <Box key={error[0]} padding={1} color={theme.palette.error.main}>
-              <><b>{field}</b>: {errorMessage}</>
+          {errors && (
+            <Box mb={1}>
+              {Object.entries(errors).map((error) => {
+                const field = uppercaseFirstLetter(removeUnderscore(error[0]))
+                const errorMessage = error[1]
+                return <Box key={error[0]} padding={1} color={theme.palette.error.main}>
+                  <><b>{field}</b>: {errorMessage}</>
+                </Box>
+              })}
             </Box>
-          })}
+          )}
           <Stack direction='row' gap={2} mb={2}>
             <TextField
               fullWidth

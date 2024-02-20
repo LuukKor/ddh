@@ -7,7 +7,6 @@ import theme from '@/theme';
 type PropsWithChildren = { children?: ReactNode };
 
 const Layout = ({ children }: PropsWithChildren): JSX.Element => {
-
   const isGreaterThanMediumBreakpoint = useMediaQuery(
     theme.breakpoints.up("md")
   );

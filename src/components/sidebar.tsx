@@ -163,8 +163,8 @@ function Sidebar(): JSX.Element {
                   <Link style={{
                     width: '100%',
                     textDecoration: 'none',
-                    backgroundColor: pathname === page.url || pathname.includes('/person/') ? theme.palette.primary.main : 'inherit',
-                    color: pathname === page.url || pathname.includes('/person/') ? theme.palette.primary.contrastText : 'inherit',
+                    backgroundColor: pathname === page.url || pathname.includes('/people/') ? theme.palette.primary.main : 'inherit',
+                    color: pathname === page.url || pathname.includes('/people/') ? theme.palette.primary.contrastText : 'inherit',
                   }} href={page.url}>
                     <ListItemButton>
                       <ListItemText>
