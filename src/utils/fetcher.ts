@@ -1,18 +1,24 @@
 type IAPIMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
+interface IAPIOptions {
+  headers: HeadersInit
+  method?: IAPIMethod,
+  body?: string
+}
+
 export async function fetcher<T>(url: string, method: IAPIMethod = 'GET', body = {}): Promise<T> {
-  const headers: HeadersInit = {
-    accept: 'application/json',
+  let options: IAPIOptions = {
+    headers: {
+      accept: 'application/json',
+    }
   }
 
   if (method === 'POST') {
-    headers.method = 'POST';
-    headers.body = JSON.stringify(body);
+    options.method = 'POST'
+    options.body = JSON.stringify(body)
   }
 
-  const result = await fetch(url, {
-    headers: headers
-  }).then((res) => res.json());
+  const result = await fetch(url, options).then((res) => res.json());
 
   return result;
 }
