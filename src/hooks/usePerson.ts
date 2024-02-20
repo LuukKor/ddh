@@ -24,7 +24,7 @@ const usePerson = (id: string): State => {
 
   return {
     status: status,
-    person: data?.results[0],
+    person: data,
     getDataByUrl: peopleService.getDataByUrl
   };
 };

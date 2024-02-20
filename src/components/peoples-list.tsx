@@ -24,7 +24,7 @@ const PeoplesList = ({ peoples }: Props): JSX.Element => {
   return (
     <>
       {peoples.map((x, i) => (
-        <Link key={x.name} href={`/people/${getIdFromUrl(i)}`}>
+        <Link key={x.name} href={`/people/${getIdFromUrl(i)}`} style={{ textDecoration: 'none' }}>
           <Typography variant="subtitle1">
             {x.name}
           </Typography>
