@@ -20,6 +20,7 @@ const usePerson = (id: string): State => {
   const { data, status } = useQuery({
     queryKey: [PEOPLES_KEY, id],
     queryFn: () => peopleService.getPerson(id),
+    enabled: parseInt(id) >= 0
   });
 
   return {
