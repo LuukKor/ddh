@@ -29,7 +29,7 @@ const PersonTab = ({ url }: PersonTabProps): JSX.Element => {
   return status === 'success'
     ? (
       <>
-        {data && <ShowData data={data} />}
+        <ShowData data={data} />
         {url.length > 1 && (
           <Stack direction={'row'} justifyContent={'center'} p={2} my={2} gap={2}>
             {urlIndex > 0 && <Button variant="contained" onClick={() => setUrlIndex(urlIndex - 1)}>Prev</Button>}
