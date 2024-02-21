@@ -20,27 +20,25 @@ const PersonTab = ({ url }: PersonTabProps): JSX.Element => {
     queryFn: () => peopleService.getDataByUrl(url[urlIndex]),
   });
 
-  return (
-    <>
-      {!isLoading ? status === 'success'
-        ? (
-          <>
-            {data && <ShowData data={data} />}
-            {url.length > 1 && (
-              <Stack direction={'row'} justifyContent={'center'} p={2} my={2} gap={2}>
-                {urlIndex > 0 && <Button variant="contained" onClick={() => setUrlIndex(urlIndex - 1)}>Prev</Button>}
-                {urlIndex < url.length - 1 && <Button variant="contained" onClick={() => setUrlIndex(urlIndex + 1)}>Next</Button>}
-              </Stack>
-            )}
-          </>
-        )
-        : <Typography>Error</Typography>
-        : <Stack alignItems={'center'} p={4}>
-          <CircularProgress />
-        </Stack>
-      }
-    </>
-  );
+  if (isLoading) {
+    return <Stack alignItems={'center'} p={4}>
+      <CircularProgress />
+    </Stack>
+  }
+
+  return status === 'success'
+    ? (
+      <>
+        {data && <ShowData data={data} />}
+        {url.length > 1 && (
+          <Stack direction={'row'} justifyContent={'center'} p={2} my={2} gap={2}>
+            {urlIndex > 0 && <Button variant="contained" onClick={() => setUrlIndex(urlIndex - 1)}>Prev</Button>}
+            {urlIndex < url.length - 1 && <Button variant="contained" onClick={() => setUrlIndex(urlIndex + 1)}>Next</Button>}
+          </Stack>
+        )}
+      </>
+    )
+    : <Typography>Error</Typography>;
 }
 
 export default PersonTab;
