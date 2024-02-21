@@ -35,6 +35,23 @@ interface IPage {
 
 const drawerWidth = 240;
 
+const pages: IPage[] = [
+  {
+    name: 'Home',
+    url: '/'
+  },
+  {
+    name: 'Starships',
+    url: '',
+    childrens: [
+      {
+        name: 'Add',
+        url: '/starship/add',
+      }
+    ]
+  }
+]
+
 function Sidebar(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [collapseIsOpen, setCollapseIsOpen] = useState(true);
@@ -43,23 +60,6 @@ function Sidebar(): JSX.Element {
   const isGreaterThanMediumBreakpoint = useMediaQuery(
     theme.breakpoints.up("md")
   );
-
-  const pages: IPage[] = [
-    {
-      name: 'Home',
-      url: '/'
-    },
-    {
-      name: 'Starships',
-      url: '',
-      childrens: [
-        {
-          name: 'Add',
-          url: '/starship/add',
-        }
-      ]
-    }
-  ]
 
   function handleDrawerClose() {
     setIsClosing(true);

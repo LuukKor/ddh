@@ -12,9 +12,10 @@ interface PersonProps {
   person: PeopleAPI
 }
 
+const urlFields = ['homeworld', 'vehicles', 'starships', 'films', 'species'];
+
 const Person = ({ person }: PersonProps): JSX.Element => {
   const [activeTab, setActiveTab] = useState(0);
-  const urlFields = ['homeworld', 'vehicles', 'starships', 'films', 'species'];
 
   const isNotEmpty = (field: [string, string[]], fields: string[]) => fields.includes(field[0]) && field[1].length !== 0;
   const handleTabChange = (_: SyntheticEvent, newTab: number) => setActiveTab(newTab);
