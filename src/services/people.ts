@@ -74,4 +74,19 @@ export class PeopleService {
       throw new Error(`Error while fetching ${e}`);
     }
   }
+
+  async serachByName(name: string): Promise<APIList<PeopleAPI>> {
+    const apiURL = new URL(this.url + PEOPLE_RESOURCE);
+    apiURL.searchParams.append('search', name);
+
+    try {
+      const response = await fetcher<APIList<PeopleAPI>>(apiURL.href);
+
+      if (!response) throw new Error('No data');
+
+      return response;
+    } catch (e) {
+      throw new Error(`Error while fetching ${e}`);
+    }
+  }
 }

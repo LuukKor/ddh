@@ -10,7 +10,7 @@ const starshipSchema = z.object({
   pilot: z.object({
     name: z.string().min(1),
     url: z.string().url(),
-  }),
+  }).nullable(),
   starship_class: z.enum(['Starfighter', 'Deep Space Mobile Battlestation']),
   cost_in_credits: z.coerce.number().min(1000),
   length: z.string().min(1),

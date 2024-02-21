@@ -8,7 +8,7 @@ import BackButton from "@/components/back-button";
 import Layout from "@/components/layout";
 import Person from "@/components/person";
 
-export default function PersonPage() {
+export default function PersonPage(): JSX.Element {
   const { query } = useRouter()
   const { person, status } = usePerson(query.id as string)
 

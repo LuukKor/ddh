@@ -19,14 +19,14 @@ interface IAPIErrors {
   fieldErrors: object
 }
 
-export default function PersonPage() {
+export default function PersonPage(): JSX.Element {
   const defaultValues: StarshipDTO = {
     name: '',
     model: '',
     cost_in_credits: 0,
     length: '',
     max_atmosphering_speed: '',
-    pilot: { name: '', url: '' },
+    pilot: null,
     starship_class: 'Starfighter'
   }
   const [errors, setErrors] = useState<IAPIErrors | object>({});
@@ -45,7 +45,6 @@ export default function PersonPage() {
       if (Object.keys(res as object).length === 0) {
         alert('Starship added')
         reset(defaultValues)
-        // setValue('starship_class', '')
       }
     })
   }

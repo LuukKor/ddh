@@ -1,9 +1,9 @@
 
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { FieldValues, UseFormSetValue } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { Autocomplete, CircularProgress, debounce, TextField } from '@mui/material';
 
 import { People } from '@/types/people';
 
@@ -15,44 +15,32 @@ interface IPilotAutocomplete {
 }
 
 const PilotAutocomplete = ({ setValueMethod, value }: IPilotAutocomplete): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [options, setOptions] = useState<readonly People[]>([{
-    name: ''
-  }]);
-  const [page, setPage] = useState(1);
-  const [allOptionsDownloaded, setAllOptionsDownloaded] = useState(false);
+  const [options, setOptions] = useState<readonly People[]>([]);
+  const [textFieldValue, setTextFieldValue] = useState('');
   const peopleService = new PeopleService();
-
   const { data, status, isLoading } = useQuery({
-    queryKey: ['pilots', page],
-    queryFn: () => peopleService.getPage(page),
-    enabled: !allOptionsDownloaded && isOpen
+    queryKey: ['pilots', textFieldValue],
+    queryFn: () => peopleService.serachByName(textFieldValue),
+    enabled: !!textFieldValue
   });
 
-  function onOpen() {
-    setIsOpen(true)
-  }
-  function onClose() {
-    setIsOpen(false)
+  const handleSearch = useMemo(() => debounce(textFieldChange, 300), [])
+
+  function textFieldChange({ target: { value } }: ChangeEvent<HTMLInputElement>) {
+    setTextFieldValue(value)
   }
 
+
   useEffect(() => {
-    if (!allOptionsDownloaded && isOpen === true && status === 'success') {
-      if (page < data.totalPage) {
-        setPage(page + 1)
-      } else {
-        setAllOptionsDownloaded(true)
-      }
-      setOptions([...data.list, ...options])
+    if (data?.results && status === 'success') {
+      setOptions(data.results);
     }
-  }, [isOpen, data, status, page, allOptionsDownloaded, options])
+  }, [data, status])
+
 
   return (
 
     <Autocomplete
-      open={isOpen}
-      onOpen={onOpen}
-      onClose={onClose}
       onChange={(_, option) => setValueMethod('pilot', option)}
       isOptionEqualToValue={(option: People, value: People) => option.name === value.name}
       getOptionLabel={(option: People) => option.name}
@@ -64,6 +52,7 @@ const PilotAutocomplete = ({ setValueMethod, value }: IPilotAutocomplete): JSX.E
         <TextField
           {...params}
           label="Pilot"
+          onChange={handleSearch}
           InputProps={{
             ...params.InputProps,
             endAdornment: (
