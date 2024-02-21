@@ -11,14 +11,10 @@ interface Props {
 const PeoplesList = ({ peoples }: Props): JSX.Element => {
   function getIdFromUrl(i: number): number | string {
     if (!peoples) return -1;
-    const slitUrl: string[] = peoples[i].url?.split('/').filter(el => el !== "") || [];
-    const id: number = parseInt(slitUrl[slitUrl.length - 1]);
+    const splitUrl: string[] = peoples[i].url?.split('/').filter(el => el !== "") || [];
+    const id: number = parseInt(splitUrl[splitUrl.length - 1]);
 
-    if (!isNaN(id)) {
-      return id;
-    } else {
-      return ''
-    }
+    return id;
   }
 
   return (
