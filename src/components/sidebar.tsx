@@ -64,21 +64,21 @@ function Sidebar(): JSX.Element {
   function handleDrawerClose() {
     setIsClosing(true);
     setOpen(false);
-  };
+  }
 
   function handleDrawerTransitionEnd() {
     setIsClosing(false);
-  };
+  }
 
   function handleDrawerToggle() {
     if (!isClosing) {
       setOpen(!open);
     }
-  };
+  }
 
-  function handleClickWithChildrens() {
+  function handleClickWithChildren() {
     setCollapseIsOpen(!collapseIsOpen);
-  };
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -141,7 +141,7 @@ function Sidebar(): JSX.Element {
               <ListItem key={page.name} disablePadding>
                 {page.childrens ? (
                   <Stack key={'child_' + page.name} sx={{ width: '100%' }}>
-                    <ListItemButton onClick={handleClickWithChildrens}>
+                    <ListItemButton onClick={handleClickWithChildren}>
                       <ListItemText primary={page.name} />
                       <KeyboardArrowDownIcon />
                     </ListItemButton>
