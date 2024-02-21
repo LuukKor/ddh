@@ -75,7 +75,7 @@ export class PeopleService {
     }
   }
 
-  async serachByName(name: string): Promise<APIList<PeopleAPI>> {
+  async searchByName(name: string): Promise<APIList<PeopleAPI>> {
     const apiURL = new URL(this.url + PEOPLE_RESOURCE);
     apiURL.searchParams.append('search', name);
 

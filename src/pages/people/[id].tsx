@@ -9,8 +9,8 @@ import Layout from "@/components/layout";
 import Person from "@/components/person";
 
 export default function PersonPage(): JSX.Element {
-  const { query } = useRouter()
-  const { person, status } = usePerson(query.id as string)
+  const { query: { id } } = useRouter()
+  const { person, status } = usePerson(id as string)
 
   return (
     <Layout>

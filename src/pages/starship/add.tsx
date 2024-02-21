@@ -15,8 +15,8 @@ import theme from "@/theme";
 import { StarshipDTO } from "../api/starship";
 
 interface IAPIErrors {
-  formErrors: object[],
-  fieldErrors: object
+  formErrors?: object[],
+  fieldErrors?: object
 }
 
 export default function PersonPage(): JSX.Element {
@@ -29,7 +29,7 @@ export default function PersonPage(): JSX.Element {
     pilot: { name: '', url: '' },
     starship_class: 'Starfighter'
   }
-  const [errors, setErrors] = useState<IAPIErrors | object>({});
+  const [errors, setErrors] = useState<IAPIErrors>({});
   const { register, handleSubmit, setValue, watch, reset } = useForm()
 
   const onSubmit = (data: FieldValues) => {

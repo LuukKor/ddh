@@ -20,7 +20,7 @@ const PilotAutocomplete = ({ setValueMethod, value }: IPilotAutocomplete): JSX.E
   const peopleService = new PeopleService();
   const { data, status, isLoading } = useQuery({
     queryKey: ['pilots', textFieldValue],
-    queryFn: () => peopleService.serachByName(textFieldValue),
+    queryFn: () => peopleService.searchByName(textFieldValue),
     enabled: !!textFieldValue
   });
 
