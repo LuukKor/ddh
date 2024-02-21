@@ -9,7 +9,6 @@ import { PeopleService } from '@/services/people';
 interface State {
   status: QueryStatus;
   person: PeopleAPI | undefined;
-  getDataByUrl: (url: string) => Promise<APIList<DataAPI>>;
 }
 
 const PEOPLES_KEY = 'people';
@@ -25,8 +24,7 @@ const usePerson = (id: string): State => {
 
   return {
     status: status,
-    person: data,
-    getDataByUrl: peopleService.getDataByUrl
+    person: data
   };
 };
 
