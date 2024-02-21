@@ -46,7 +46,7 @@ const PilotAutocomplete = ({ setValueMethod, value }: IPilotAutocomplete): JSX.E
       getOptionLabel={(option: People) => option.name}
       options={options}
       loading={isLoading}
-      value={value}
+      value={value?.name === '' ? null : value}
       fullWidth
       renderInput={(params) => (
         <TextField

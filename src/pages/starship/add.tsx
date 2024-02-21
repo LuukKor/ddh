@@ -26,7 +26,7 @@ export default function PersonPage(): JSX.Element {
     cost_in_credits: 0,
     length: '',
     max_atmosphering_speed: '',
-    pilot: null,
+    pilot: { name: '', url: '' },
     starship_class: 'Starfighter'
   }
   const [errors, setErrors] = useState<IAPIErrors | object>({});
